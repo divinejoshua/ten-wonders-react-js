@@ -5,13 +5,53 @@ import axios from "axios";
 const baseURL = "https://jsonplaceholder.typicode.com/posts/1";
 
 function App() {
+
+  
   const [isLoading, setisLoading] = useState(false);
+  const [results, setresults] = useState([]);
+  const [query, setquery] = useState("");
+  const [queryValue, setqueryValue] = useState("");
+
+
+
+
+    // Submit form 
+    const submitForm = (event) => {
+
+       //Preventing page refresh
+       event.preventDefault();
+
+      // Get the results 
+      getResults(query)
+   }
+  
+
+  // Get result function
+  const getResults = async (query) =>{
+
+    if((!query || /^\s*$/.test(query))===true){ return }
+    setisLoading(true)
+
+
+    try{
+      let response = await axios.get(baseURL)
+      setresults(response.data)
+    }
+    catch {
+      console.log("An error occured")
+    }
+
+    finally{
+      setisLoading(false)
+    }
+  }
 
 
   //USE EFFECT
   useEffect(() => {
-    //Default function goes here
-    
+      //Default function goes here
+      getResults("Beautiful nature images")
+
     return () => {
     }
   }, [])
@@ -39,11 +79,12 @@ function App() {
 
     <main className='p-5'>
         {/* Search box  */}
-          <form className='mt-16'  method="get">
+          <form className='mt-16'  method="get" onSubmit={submitForm}>
               <input 
               type="text" 
               required
-              name='q'
+              name='query'
+              onChange={e => setquery(e.target.value)}
               autoFocus={true}
               placeholder='Search Ten Wonders...'
               className='w-full text-gray-700 text-sm p-2 pt-3 pb-3 pr-5 pl-5 rounded-lg bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-blue-500 focus:ring-0.5 focus:border-100 transition duration-0 hover:duration-150'
@@ -54,7 +95,14 @@ function App() {
             </form>
 
           {/* Gallery section  */}
-          <p className='text-sm mt-4 text-gray-500'> Seach results for "Nature"</p>
+          {
+            isLoading ?
+            <p className='text-sm mt-4 text-gray-500'> Loading...</p>
+            :
+            <p className='text-sm mt-4 text-gray-500'> Seach results for "{queryValue}"</p> 
+
+          }
+          
 
           <section class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-5">
             <div class=" overflow-hidden">
