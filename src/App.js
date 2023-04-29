@@ -7,7 +7,7 @@ function App() {
 
       {/* Navbar */}
       <nav className="nav-header font-bold pl-5 pr-5">   
-        <div className='nav-div pb-4 logo-text font-bold'>
+        <div className='nav-div pb-4 logo-text font-bold text-pink-800'>
           Ten Wonders   
           {/* Link to twitter account  */}
           <a href='https://twitter.com/Divine_Er' rel="noreferrer" target="_blank" > 
@@ -23,7 +23,7 @@ function App() {
 
     <main className='p-5'>
         {/* Search box  */}
-          <form className='mt-20'  method="post">
+          <form className='mt-16'  method="post">
               <input 
               type="text" 
               required
