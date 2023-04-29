@@ -4,9 +4,9 @@ import axios from "axios";
 
 let baseURL = "https://api.scaleserp.com/search";
 
-// if (process.env.REACT_APP_DEBUG==="1"){
-//   baseURL = "/data/search.json";
-// }
+if (process.env.REACT_APP_DEBUG==="1"){
+  baseURL = "/data/search.json";
+}
 
 function App() {
 
@@ -116,9 +116,9 @@ function App() {
           {/* Gallery section  */}
           {
             isLoading ?
-            <p className='text-sm mt-4 text-gray-500'> Loading...</p>
+            <p className='text-small mt-4 text-gray-500 ml-2 '> Loading...</p>
             :
-            <p className='text-sm mt-4 text-gray-500'> {queryValue} &nbsp;  ({timeTaken} Seconds)</p> 
+            <p className='text-small mt-4 text-gray-500 ml-2'> {queryValue} &nbsp;  ({timeTaken} Seconds)</p> 
 
           }
 

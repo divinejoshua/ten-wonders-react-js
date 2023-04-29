@@ -6,9 +6,11 @@
   font-size: 20px;
 }
 
+
 .App{
   max-width: 600px;
 }
+
 
 .nav-header{
   padding-top: 30px;
@@ -23,6 +25,10 @@
   background-color: rgba(255, 255, 255, 0.9);
 }
 
+
+.text-small {
+  font-size: 12px;
+}
 
 .caption{
   font-size: 11px;
