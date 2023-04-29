@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import axios from "axios";
 
-const baseURL = "https://jsonplaceholder.typicode.com/posts/1";
+let baseURL = "https://api.scaleserp.com/search";
+
+if (process.env.REACT_APP_DEBUG==="0"){
+  baseURL = "/data/search.json";
+}
 
 function App() {
 
@@ -11,6 +15,7 @@ function App() {
   const [results, setresults] = useState([]);
   const [query, setquery] = useState("");
   const [queryValue, setqueryValue] = useState("");
+  const [timeTaken, settimeTaken] = useState("");
 
 
 
@@ -32,11 +37,23 @@ function App() {
     if((!query || /^\s*$/.test(query))===true){ return }
     setisLoading(true)
 
+    setresults([])
+  
 
+    // set up the request parameters
+    const params = {
+      api_key: process.env.REACT_APP_SCALESERP_KEY,
+      q: query,
+      search_type: "images",
+      location: "United+States"
+    }
+
+    // Run the requests
     try{
-      let response = await axios.get(baseURL)
+      let response = await axios.get(baseURL, { params })
       setqueryValue(query)
       setresults(response.data)
+      settimeTaken(response.data.search_metadata.total_time_taken)
     }
     catch {
       console.log("An error occured")
@@ -50,6 +67,7 @@ function App() {
 
   //USE EFFECT
   useEffect(() => {
+
       //Default function goes here
       getResults("Beautiful nature images")
 
@@ -100,57 +118,25 @@ function App() {
             isLoading ?
             <p className='text-sm mt-4 text-gray-500'> Loading...</p>
             :
-            <p className='text-sm mt-4 text-gray-500'> Seach results for "{queryValue}"</p> 
+            <p className='text-sm mt-4 text-gray-500'> {queryValue} &nbsp;  ({timeTaken} Seconds)</p> 
 
           }
+
+        <section class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-5">
+            {Array.isArray(results.image_results) ? results.image_results.map((post,index) => (
+                <div class=" overflow-hidden" key={index}>
+                  <a href={post.link} rel="noreferrer" target="_blank" >
+                    <img src={post.image}  alt={post.title} class="w-full h-48 object-cover rounded-lg"/>
+                    <div class="">
+                        <h2 class="title mt-3 text-gray-600 ml-1">{post.title}</h2>
+                        <p class="caption text-gray-400 ml-1">{post.domain}</p>
+                    </div>
+                    </a>
+                </div>
+  
+        )) : ""}
+            </section>
           
-
-          <section class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-5">
-            <div class=" overflow-hidden">
-                <img src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="Image 1" class="w-full h-48 object-cover rounded-lg"/>
-                <div class="">
-                    <h2 class="title mt-3 text-gray-600 ml-1">Image 1</h2>
-                    <p class="caption text-gray-400 ml-1">website.com</p>
-                </div>
-            </div>
-            <div class="overflow-hidden">
-                <img src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="Image 2" class="w-full h-48 object-cover rounded-lg"/>
-                <div class="">
-                    <h2 class="title mt-3 text-gray-600 ml-1">Image 1</h2>
-                    <p class="caption text-gray-400 ml-1">website.com</p>
-                </div>
-            </div>
-            <div class="overflow-hidden">
-                <img src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="Image 3" class="w-full h-48 object-cover rounded-lg"/>
-                <div class="">
-                    <h2 class="title mt-3 text-gray-600 ml-1">Image 1</h2>
-                    <p class="caption text-gray-400 ml-1">website.com</p>
-                </div>
-            </div>
-            <div class="overflow-hidden">
-                <img src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt="Image 4" class="w-full h-48 object-cover rounded-lg"/>
-                <div class="">
-                    <h2 class="title mt-3 text-gray-600 ml-1">Image 1</h2>
-                    <p class="caption text-gray-400 ml-1">website.com</p>
-                </div>
-            </div>
-            <div class="overflow-hidden">
-                <img src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" class="w-full h-48 object-cover rounded-lg"/>
-                <div class="">
-                    <h2 class="title mt-3 text-gray-600 ml-1">Image 1</h2>
-                    <p class="caption text-gray-400 ml-1">website.com</p>
-                </div>
-            </div>
-            <div class="overflow-hidden">
-                <img src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt="Image 6" class="w-full h-48 object-cover rounded-lg"/>
-                <div class="">
-                    <h2 class="title mt-3 text-gray-600 ml-1">Image 1</h2>
-                    <p class="caption text-gray-400 ml-1">website.com</p>
-                </div>
-            </div>
-        </section>
-
-
 
         </main> 
 
