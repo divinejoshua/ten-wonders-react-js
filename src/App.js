@@ -1,6 +1,22 @@
+import { useEffect, useState } from 'react';
 import './App.css';
+import axios from "axios";
+
+const baseURL = "https://jsonplaceholder.typicode.com/posts/1";
 
 function App() {
+  const [isLoading, setisLoading] = useState(false);
+
+
+  //USE EFFECT
+  useEffect(() => {
+    //Default function goes here
+    
+    return () => {
+    }
+  }, [])
+
+  
   return (
      // Main box 
     <div className="App mx-auto">
