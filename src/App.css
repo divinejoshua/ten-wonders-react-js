@@ -26,7 +26,19 @@
 
 .caption{
   font-size: 11px;
+  white-space: nowrap; 
+  width: 80%; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
+.title{
+  font-size: 12px;
+  white-space: nowrap; 
+  width: 80%; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
 
 .gallery {
   column-count: 3;
@@ -35,38 +47,19 @@
   gap: 1rem;
   /* padding: 4rem; */
 }
-
-.image img {
-  height: auto;
-  width: 100%;
+ img {
+  -webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .2s ease-in-out;
+	transition: .2s ease-in-out;
 
 }
 
 
-
-
-/* Responsive-ness for different screen-sizes */
-@media screen and (max-width: 810px) {
-  .gallery {
-    column-count: 3;
-    --webkit-column-count: 3;
-    --moz-column-count: 3;
-  }
+ img:hover {
+	-webkit-transform: scale(1.05);
+	transform: scale(1.05);
+  cursor: pointer;
 }
 
-@media screen and (max-width: 500px) {
-  .gallery {
-    column-count: 2;
-    --webkit-column-count: 2;
-    --moz-column-count: 2;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .gallery {
-    column-count: 1;
-    --webkit-column-count: 1;
-    --moz-column-count: 1;
-  }
-}
 
