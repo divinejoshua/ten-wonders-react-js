@@ -35,6 +35,7 @@ function App() {
 
     try{
       let response = await axios.get(baseURL)
+      setqueryValue(query)
       setresults(response.data)
     }
     catch {
