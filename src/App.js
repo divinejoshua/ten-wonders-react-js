@@ -4,9 +4,9 @@ import axios from "axios";
 
 let baseURL = "https://api.scaleserp.com/search";
 
-if (process.env.REACT_APP_DEBUG==="1"){
-  baseURL = "/data/search.json";
-}
+// if (process.env.REACT_APP_DEBUG==="1"){
+//   baseURL = "/data/search.json";
+// }
 
 function App() {
 
@@ -42,7 +42,7 @@ function App() {
 
     // set up the request parameters
     const params = {
-      api_key: process.env.REACT_APP_SCALESERP_KEY,
+      api_key: "C2989165E0D84615BEF2DDFD73512DAF",
       q: query,
       search_type: "images",
       location: "United+States"
