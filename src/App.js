@@ -42,7 +42,7 @@ function App() {
 
     // set up the request parameters
     const params = {
-      api_key: "C2989165E0D84615BEF2DDFD73512DAF",
+      api_key: process.env.REACT_APP_SCALESERP_API_KEY,
       q: query,
       search_type: "images",
       location: "United+States"
@@ -122,14 +122,14 @@ function App() {
 
           }
 
-        <section class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-5">
+        <section className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-5">
             {Array.isArray(results.image_results) ? results.image_results.map((post,index) => (
-                <div class=" overflow-hidden" key={index}>
+                <div className=" overflow-hidden" key={index}>
                   <a href={post.link} rel="noreferrer" target="_blank" >
-                    <img src={post.image}  alt={post.title} class="w-full h-48 object-cover rounded-lg"/>
-                    <div class="">
-                        <h2 class="title mt-3 text-gray-600 ml-1">{post.title}</h2>
-                        <p class="caption text-gray-400 ml-1">{post.domain}</p>
+                    <img src={post.image}  alt={post.title} className="w-full h-48 object-cover rounded-lg"/>
+                    <div className="">
+                        <h2 className="title mt-3 text-gray-600 ml-1">{post.title}</h2>
+                        <p className="caption text-gray-400 ml-1">{post.domain}</p>
                     </div>
                     </a>
                 </div>
