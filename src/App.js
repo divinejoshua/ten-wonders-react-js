@@ -4,7 +4,7 @@ import axios from "axios";
 
 let baseURL = "https://api.scaleserp.com/search";
 
-if (process.env.REACT_APP_DEBUG==="1"){
+if (process.env.REACT_APP_DEBUG==="1"){  
   baseURL = "/data/search.json";
 }
 
